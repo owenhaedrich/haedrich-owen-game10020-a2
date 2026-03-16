@@ -5,8 +5,8 @@ using UnityEngine.Events;
 public class TimeSword : MonoBehaviour
 {
     [HideInInspector]
-    public UnityEvent<ISnapshottable> onTimeSwordSnapshot = new UnityEvent<ISnapshottable>();
-    public UnityEvent onTimeSwordRestore = new UnityEvent();
+    public UnityEvent<ISnapshottable> onSnapshot = new UnityEvent<ISnapshottable>();
+    public UnityEvent onRestore = new UnityEvent();
 
     Collider weaponCollider;
     Animator animator;
@@ -25,7 +25,7 @@ public class TimeSword : MonoBehaviour
     {
         if (other.GetComponent<ISnapshottable>() != null)
         {
-            onTimeSwordSnapshot.Invoke(other.GetComponent<ISnapshottable>());
+            onSnapshot.Invoke(other.GetComponent<ISnapshottable>());
             other.GetComponent<ISnapshottable>().Snapshot();
             weaponCollider.enabled = false;
         }
@@ -39,6 +39,6 @@ public class TimeSword : MonoBehaviour
 
     public void Restore()
     {
-        onTimeSwordRestore.Invoke();
+        onRestore.Invoke();
     }
 }

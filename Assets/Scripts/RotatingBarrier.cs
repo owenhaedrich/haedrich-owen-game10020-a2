@@ -5,16 +5,16 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
     public ToggleColour toggleColour = ToggleColour.Red;
     public float rotationSpeed = 1.0f;
 
+    private Rigidbody _rigidbody;
+    private BoxCollider _barrierCollider;
+
     private bool _active = false;
     private bool _inPosition = false;
     private Quaternion _targetRotation;
     private Quaternion _closedRotation;
     private Quaternion _openRotation;
-    private Rigidbody _rigidbody;
-    private BoxCollider _barrierCollider;
     private Quaternion _snapshotRotation;
     private bool _hasSnapshot = false;
-    private TimeSword _timeSword;
 
     private void Awake()
     {
@@ -40,8 +40,8 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
             pressurePlate.onToggle.AddListener(Toggle);
         }
 
-        _timeSword = FindFirstObjectByType<TimeSword>();
-        _timeSword.onTimeSwordRestore.AddListener(Restore);
+        TimeSword timeSword = FindFirstObjectByType<TimeSword>();
+        timeSword.onRestore.AddListener(Restore);
     }
 
     private void OnTriggerStay(Collider other)
@@ -76,8 +76,10 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
-    private void Toggle(bool active)
+    private void Toggle(bool active, ToggleColour incomingToggleColour)
     {
+        if (incomingToggleColour != toggleColour) return;
+
         _active = active;
         _inPosition = false ;
 

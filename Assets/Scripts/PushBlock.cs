@@ -7,7 +7,6 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
     private Rigidbody _rigidbody;
     private Vector3 _snapshotPosition;
     private bool _hasSnapshot = false;
-    private TimeSword _timeSword;
 
     private void Awake()
     {
@@ -16,8 +15,8 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
 
     private void Start()
     {
-        _timeSword = FindFirstObjectByType<TimeSword>();
-        _timeSword.onTimeSwordRestore.AddListener(Restore);
+        TimeSword timeSword = FindFirstObjectByType<TimeSword>();
+        timeSword.onRestore.AddListener(Restore);
     }
 
     public void Push(Vector3 pushDirection, float pushSpeed)
@@ -32,7 +31,38 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
 
         // Slide in that direction
         float finalSpeed = Mathf.Max(pushSpeed, minimumPushSpeed);
-        _rigidbody.MovePosition(Vector3.MoveTowards(transform.position, transform.position + moveDirection, finalSpeed * Time.fixedDeltaTime));
+        float moveDistance = finalSpeed * Time.fixedDeltaTime;
+
+        RaycastHit[] hits = _rigidbody.SweepTestAll(moveDirection, moveDistance);
+        RaycastHit closestHit = new RaycastHit();
+        float minDistance = float.MaxValue;
+        bool hitFound = false;
+
+        foreach (var hit in hits)
+        {
+            // Check if the hit object's layer is in the collisionLayers mask
+
+            bool includedInCollisionLayer = (_rigidbody.includeLayers.value & (1 << hit.collider.gameObject.layer)) != 0;
+            if (includedInCollisionLayer && !hit.collider.isTrigger)
+            {
+                if (hit.distance < minDistance)
+                {
+                    minDistance = hit.distance;
+                    closestHit = hit;
+                    hitFound = true;
+                }
+            }
+        }
+
+        if (!hitFound)
+        {
+            _rigidbody.MovePosition(transform.position + moveDirection * moveDistance);
+        }
+        else
+        {
+            // If there's an obstacle, move as close as possible
+            _rigidbody.MovePosition(transform.position + moveDirection * (closestHit.distance - 0.01f));
+        }
     }
     
     public void Snapshot()

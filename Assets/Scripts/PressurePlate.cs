@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class PressurePlate : MonoBehaviour
 {
-    public UnityEvent<bool> onToggle = new UnityEvent<bool>();
+    public UnityEvent<bool, ToggleColour> onToggle = new UnityEvent<bool, ToggleColour>();
 
     public ToggleColour toggleColour = ToggleColour.Red;
 
@@ -12,7 +13,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        onToggle.Invoke(true);
+        onToggle.Invoke(true, toggleColour);
         objectsOnPressurePlates.Add(other.gameObject);
     }
 
@@ -20,6 +21,6 @@ public class PressurePlate : MonoBehaviour
     {
         objectsOnPressurePlates.Remove(other.gameObject);
         
-        if (objectsOnPressurePlates.Count == 0 ) onToggle.Invoke(false);
+        if (objectsOnPressurePlates.Count == 0 ) onToggle.Invoke(false, toggleColour);
     }
 }

@@ -6,29 +6,35 @@ public class HUD : MonoBehaviour
 {
     public TextMeshProUGUI TimeSwordSnapshotsText;
 
-    private TimeSword _timeSword;
-    private List<string> storedObjects = new List<string>();
+    private List<ISnapshottable> storedSnapshots = new List<ISnapshottable>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         ClearTimeSwordSnapshotsText();
 
-        _timeSword = FindFirstObjectByType<TimeSword>();
-        _timeSword.onTimeSwordSnapshot.AddListener(UpdateTimeSwordSnapshotsText);
-        _timeSword.onTimeSwordRestore.AddListener(ClearTimeSwordSnapshotsText);
+        TimeSword timeSword = FindFirstObjectByType<TimeSword>();
+        timeSword.onSnapshot.AddListener(UpdateTimeSwordSnapshotsText);
+        timeSword.onRestore.AddListener(ClearTimeSwordSnapshotsText);
     }
 
     void UpdateTimeSwordSnapshotsText(ISnapshottable snapshottable)
     {
-        storedObjects.Add(snapshottable.GetName());
-        string storedObjectsList = string.Join("\n", storedObjects.ToArray());
-        TimeSwordSnapshotsText.text = $"Stored Object: \n{storedObjectsList}";
+        if (storedSnapshots.Contains(snapshottable)) return;
+
+        storedSnapshots.Add(snapshottable);
+        string storedObjectsStrings = "";
+        foreach (ISnapshottable snapshot in storedSnapshots)
+        {
+            storedObjectsStrings += "\n" + snapshot.GetName();
+        }
+
+        TimeSwordSnapshotsText.text = $"Stored Object: \n{storedObjectsStrings}";
     }
 
     void ClearTimeSwordSnapshotsText()
     {
-        storedObjects.Clear();
+        storedSnapshots.Clear();
         TimeSwordSnapshotsText.text = "No Stored Object.";
     }
 }
