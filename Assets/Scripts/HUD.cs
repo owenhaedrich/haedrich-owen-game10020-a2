@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class HUD : MonoBehaviour
     public TextMeshProUGUI TimeSwordSnapshotsText;
 
     private TimeSword _timeSword;
+    private List<string> storedObjects = new List<string>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,11 +21,14 @@ public class HUD : MonoBehaviour
 
     void UpdateTimeSwordSnapshotsText(ISnapshottable snapshottable)
     {
-        TimeSwordSnapshotsText.text = $"Stored Object: \n{snapshottable.GetName()}";
+        storedObjects.Add(snapshottable.GetName());
+        string storedObjectsList = string.Join("\n", storedObjects.ToArray());
+        TimeSwordSnapshotsText.text = $"Stored Object: \n{storedObjectsList}";
     }
 
     void ClearTimeSwordSnapshotsText()
     {
+        storedObjects.Clear();
         TimeSwordSnapshotsText.text = "No Stored Object.";
     }
 }

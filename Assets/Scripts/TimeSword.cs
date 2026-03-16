@@ -27,11 +27,13 @@ public class TimeSword : MonoBehaviour
         {
             onTimeSwordSnapshot.Invoke(other.GetComponent<ISnapshottable>());
             other.GetComponent<ISnapshottable>().Snapshot();
+            weaponCollider.enabled = false;
         }
     }
 
     public void Swing()
     {
+        weaponCollider.enabled = true;
         animator.SetTrigger("StartAttack");
     }
 

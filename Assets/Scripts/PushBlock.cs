@@ -17,7 +17,6 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
     private void Start()
     {
         _timeSword = FindFirstObjectByType<TimeSword>();
-        _timeSword.onTimeSwordSnapshot.AddListener(Clear);
         _timeSword.onTimeSwordRestore.AddListener(Restore);
     }
 
@@ -49,11 +48,6 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
             _rigidbody.position = _snapshotPosition;
             _hasSnapshot = false;
         }
-    }
-
-    public void Clear(ISnapshottable snapshottable)
-    {
-        _hasSnapshot = false;
     }
 
     public string GetName()

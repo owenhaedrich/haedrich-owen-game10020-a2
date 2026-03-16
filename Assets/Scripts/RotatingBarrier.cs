@@ -41,7 +41,6 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
 
         _timeSword = FindFirstObjectByType<TimeSword>();
-        _timeSword.onTimeSwordSnapshot.AddListener(Clear);
         _timeSword.onTimeSwordRestore.AddListener(Restore);
     }
 
@@ -106,10 +105,6 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
             _hasSnapshot = false;
             _inPosition = false;
         }
-    }
-    public void Clear(ISnapshottable snapshottable)
-    {
-        _hasSnapshot = false;
     }
 
     public string GetName()
