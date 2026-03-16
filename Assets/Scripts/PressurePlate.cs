@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class PressurePlate : MonoBehaviour
 {
+    [HideInInspector]
     public UnityEvent<bool, ToggleColour> onToggle = new UnityEvent<bool, ToggleColour>();
 
     public ToggleColour toggleColour = ToggleColour.Red;
