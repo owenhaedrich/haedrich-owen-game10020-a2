@@ -5,7 +5,7 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
     public ToggleColour toggleColour = ToggleColour.Red;
     public float rotationSpeed = 1.0f;
 
-    private bool _toggled = false;
+    private bool _active = false;
     private bool _inPosition = false;
     private Quaternion _targetRotation;
     private Quaternion _closedRotation;
@@ -76,12 +76,12 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
-    private void Toggle()
+    private void Toggle(bool active)
     {
-        _toggled = !_toggled;
+        _active = active;
         _inPosition = false ;
 
-        if (_toggled)
+        if (_active)
         {
             _targetRotation = _openRotation;
         }
