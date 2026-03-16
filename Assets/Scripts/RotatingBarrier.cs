@@ -28,10 +28,7 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         _closedRotation = Quaternion.Euler(0, 90, 0);
         _openRotation = Quaternion.Euler(0, 0, 0);
         _targetRotation = _closedRotation;
-    }
 
-    private void Start()
-    {
         PressurePlate[] pressurePlates = FindObjectsByType<PressurePlate>(FindObjectsSortMode.None);
         
         foreach (PressurePlate pressurePlate in pressurePlates)

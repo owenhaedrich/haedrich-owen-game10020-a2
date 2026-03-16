@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 
 public class Player : MonoBehaviour, IPushable
 {
@@ -21,7 +20,7 @@ public class Player : MonoBehaviour, IPushable
     private bool _pushed = false;
     private float _pushTimer = 0f;
 
-    private void Start()
+    private void Awake()
     {
         _controller = GetComponent<CharacterController>();
 

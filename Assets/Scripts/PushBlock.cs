@@ -11,10 +11,7 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-    }
 
-    private void Start()
-    {
         TimeSword timeSword = FindFirstObjectByType<TimeSword>();
         timeSword.onRestore.AddListener(Restore);
     }

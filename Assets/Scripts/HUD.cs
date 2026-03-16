@@ -8,8 +8,7 @@ public class HUD : MonoBehaviour
 
     private List<ISnapshottable> storedSnapshots = new List<ISnapshottable>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         ClearTimeSwordSnapshotsText();
 
