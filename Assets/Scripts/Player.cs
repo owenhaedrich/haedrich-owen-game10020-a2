@@ -34,6 +34,11 @@ public class Player : MonoBehaviour, IPushable
         Move();
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<IPushable>() != null)

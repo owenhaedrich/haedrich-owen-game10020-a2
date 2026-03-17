@@ -28,38 +28,8 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
 
         // Slide in that direction
         float finalSpeed = Mathf.Max(pushSpeed, minimumPushSpeed);
-        float moveDistance = finalSpeed * Time.fixedDeltaTime;
 
-        RaycastHit[] hits = _rigidbody.SweepTestAll(moveDirection, moveDistance);
-        RaycastHit closestHit = new RaycastHit();
-        float minDistance = float.MaxValue;
-        bool hitFound = false;
-
-        foreach (var hit in hits)
-        {
-            // Check if the hit object's layer is in the collisionLayers mask
-
-            bool includedInCollisionLayer = (_rigidbody.includeLayers.value & (1 << hit.collider.gameObject.layer)) != 0;
-            if (includedInCollisionLayer && !hit.collider.isTrigger)
-            {
-                if (hit.distance < minDistance)
-                {
-                    minDistance = hit.distance;
-                    closestHit = hit;
-                    hitFound = true;
-                }
-            }
-        }
-
-        if (!hitFound)
-        {
-            _rigidbody.MovePosition(transform.position + moveDirection * moveDistance);
-        }
-        else
-        {
-            // If there's an obstacle, move as close as possible
-            _rigidbody.MovePosition(transform.position + moveDirection * (closestHit.distance - 0.01f));
-        }
+        _rigidbody.linearVelocity = finalSpeed * moveDirection;
     }
     
     public void Snapshot()
