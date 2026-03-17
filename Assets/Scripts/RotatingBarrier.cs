@@ -8,13 +8,12 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
     private Rigidbody _rigidbody;
     private BoxCollider _barrierCollider;
 
-    private bool _active = false;
     private bool _inPosition = false;
+    private bool _hasSnapshot = false;
     private Quaternion _targetRotation;
     private Quaternion _closedRotation;
     private Quaternion _openRotation;
     private Quaternion _snapshotRotation;
-    private bool _hasSnapshot = false;
 
     private void Awake()
     {
@@ -77,10 +76,9 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
     {
         if (incomingToggleColour != toggleColour) return;
 
-        _active = active;
         _inPosition = false ;
 
-        if (_active)
+        if (active)
         {
             _targetRotation = _openRotation;
         }
