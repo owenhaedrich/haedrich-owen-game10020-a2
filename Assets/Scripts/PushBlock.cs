@@ -22,9 +22,15 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
         Vector3 moveDirection = Vector3.zero;
 
         if (Mathf.Abs(pushDirection.x) > Mathf.Abs(pushDirection.z))
+        {
             moveDirection = Vector3.right * Mathf.Sign(pushDirection.x);
+            _rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+        }
         else
+        {
             moveDirection = Vector3.forward * Mathf.Sign(pushDirection.z);
+            _rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+        }
 
         // Slide in that direction
         float finalSpeed = Mathf.Max(pushSpeed, minimumPushSpeed);
