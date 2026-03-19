@@ -12,10 +12,12 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
     {
         _rigidbody = GetComponent<Rigidbody>();
 
+        // Listen for onRestore from the Time Sword to restore a snapshot
         TimeSword timeSword = FindFirstObjectByType<TimeSword>();
         timeSword.onRestore.AddListener(Restore);
     }
 
+    // IPushable usage: only move up, down, left, or right - not diagonally
     public void Push(Vector3 pushDirection, float pushSpeed)
     {
         // Get the closest cardinal direction to the push direction
@@ -37,13 +39,15 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
 
         _rigidbody.linearVelocity = finalSpeed * moveDirection;
     }
-    
+
+    // ISnapshottable usage: store position
     public void Snapshot()
     {
         _snapshotPosition = transform.position;
         _hasSnapshot = true;
     }
 
+    // ISnapshottable usage: restore position
     public void Restore()
     {
         if (_hasSnapshot)
@@ -53,6 +57,7 @@ public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
         }
     }
 
+    // ISnapshottable usage: name is "Push Block"
     public string GetName()
     {
         return "Push Block";

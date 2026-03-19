@@ -28,14 +28,14 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         _openRotation = Quaternion.Euler(0, 0, 0);
         _targetRotation = _closedRotation;
 
+        // Listen to all pressure plates with the same colour and rotate according to their toggled state
         PressurePlate[] pressurePlates = FindObjectsByType<PressurePlate>(FindObjectsSortMode.None);
-        
         foreach (PressurePlate pressurePlate in pressurePlates)
         {
-            if (pressurePlate.toggleColour == toggleColour)
-            pressurePlate.onToggle.AddListener(Toggle);
+            if (pressurePlate.toggleColour == toggleColour) pressurePlate.onToggle.AddListener(Toggle);
         }
 
+        // Listen for onRestore from the Time Sword to restore a snapshot
         TimeSword timeSword = FindFirstObjectByType<TimeSword>();
         timeSword.onRestore.AddListener(Restore);
     }
@@ -72,10 +72,8 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
-    private void Toggle(bool active, ToggleColour incomingToggleColour)
+    private void Toggle(bool active)
     {
-        if (incomingToggleColour != toggleColour) return;
-
         _inPosition = false ;
 
         if (active)
@@ -88,12 +86,14 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
+    // ISnapshottable usage: store rotation
     public void Snapshot()
     {
         _snapshotRotation = transform.rotation;
         _hasSnapshot = true;
     }
 
+    // ISnapshottable usage: restore rotation
     public void Restore()
     {
         if (_hasSnapshot)
@@ -104,6 +104,7 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
+    // ISnapshottable usage: name is "Rotating Barrier"
     public string GetName()
     {
         return "Rotating Barrier";

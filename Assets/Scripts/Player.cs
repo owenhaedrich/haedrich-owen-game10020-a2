@@ -95,16 +95,19 @@ public class Player : MonoBehaviour, IPushable
         }
     }
 
+    // Swing the Time Sword
     void Attack(InputAction.CallbackContext obj)
     {
         timeSword.Swing();
     }
 
+    // Tell the Time Sword to tell the ISnapshottables to restore their snapshots
     void Special(InputAction.CallbackContext obj)
     {
         timeSword.Restore();
     }
 
+    // IPushable usage: walk speed is slowed when being pushed
     public void Push(Vector3 pushDirection, float pushSpeed)
     {
         _pushed = true;

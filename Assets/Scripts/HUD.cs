@@ -12,6 +12,7 @@ public class HUD : MonoBehaviour
     {
         ClearTimeSwordSnapshotsText();
 
+        // Listen for the Time Sword storing and restoring ISnapshottables and update the HUD to show the snapshotted objects
         TimeSword timeSword = FindFirstObjectByType<TimeSword>();
         timeSword.onSnapshot.AddListener(UpdateTimeSwordSnapshotsText);
         timeSword.onRestore.AddListener(ClearTimeSwordSnapshotsText);
@@ -19,7 +20,7 @@ public class HUD : MonoBehaviour
 
     void UpdateTimeSwordSnapshotsText(ISnapshottable snapshottable)
     {
-        if (storedSnapshots.Contains(snapshottable)) return;
+        if (storedSnapshots.Contains(snapshottable)) return; // Don't show a particular object multiple times
 
         storedSnapshots.Add(snapshottable);
         string storedObjectsStrings = "";

@@ -21,6 +21,7 @@ public class TimeSword : MonoBehaviour
         weaponCollider.enabled = value == 1 ? true : false;
     }
 
+    // Tell ISnapshottables to take a snapshot if they're hit by the Time Sword
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<ISnapshottable>() != null)
@@ -31,12 +32,14 @@ public class TimeSword : MonoBehaviour
         }
     }
 
+    // Swing the sword
     public void Swing()
     {
         weaponCollider.enabled = true;
         animator.SetTrigger("StartAttack");
     }
 
+    // Tell all ISnapshottables to restore their snapshot
     public void Restore()
     {
         onRestore.Invoke();

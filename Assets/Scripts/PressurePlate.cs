@@ -6,22 +6,24 @@ using UnityEngine.UIElements;
 public class PressurePlate : MonoBehaviour
 {
     [HideInInspector]
-    public UnityEvent<bool, ToggleColour> onToggle = new UnityEvent<bool, ToggleColour>();
+    public UnityEvent<bool> onToggle = new UnityEvent<bool>(); // Share the toggle state when toggled
 
     public ToggleColour toggleColour = ToggleColour.Red;
 
     private List<GameObject> objectsOnPressurePlates = new List<GameObject>();
 
+    // Activate and send an active toggle event when something is on the pressure plate
     private void OnTriggerEnter(Collider other)
     {
-        onToggle.Invoke(true, toggleColour);
+        onToggle.Invoke(true);
         objectsOnPressurePlates.Add(other.gameObject);
     }
-
+    
+    // Activate and send an inactives toggle event when everything leaves the pressure plate
     private void OnTriggerExit(Collider other)
     {
         objectsOnPressurePlates.Remove(other.gameObject);
         
-        if (objectsOnPressurePlates.Count == 0 ) onToggle.Invoke(false, toggleColour);
+        if (objectsOnPressurePlates.Count == 0 ) onToggle.Invoke(false);
     }
 }
