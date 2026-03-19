@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Tell ISnapshottables when to store and restore their snapshots. Send onSnapshot and onRestore events for the ISnapshottables, the SoundManager, and the HUD
 public class TimeSword : MonoBehaviour
 {
     [HideInInspector]

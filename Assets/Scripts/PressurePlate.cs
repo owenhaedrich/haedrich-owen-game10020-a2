@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
+// Send the onToggle event when something is on the pressure plate or everything leaves the pressure plate
 public class PressurePlate : MonoBehaviour
 {
     [HideInInspector]

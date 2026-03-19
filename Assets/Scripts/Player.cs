@@ -34,11 +34,7 @@ public class Player : MonoBehaviour, IPushable
         Move();
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
+    // Push a pushable in range
     private void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<IPushable>() != null)

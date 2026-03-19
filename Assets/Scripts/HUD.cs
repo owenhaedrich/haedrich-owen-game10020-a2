@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// Listen for the Time Sword storing and restoring ISnapshottables and update the HUD to show the snapshotted objects
 public class HUD : MonoBehaviour
 {
     public TextMeshProUGUI TimeSwordSnapshotsText;
@@ -12,7 +13,7 @@ public class HUD : MonoBehaviour
     {
         ClearTimeSwordSnapshotsText();
 
-        // Listen for the Time Sword storing and restoring ISnapshottables and update the HUD to show the snapshotted objects
+        // Connect listeners to the Time Sword events
         TimeSword timeSword = FindFirstObjectByType<TimeSword>();
         timeSword.onSnapshot.AddListener(UpdateTimeSwordSnapshotsText);
         timeSword.onRestore.AddListener(ClearTimeSwordSnapshotsText);

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Slide when pushed.
+// Take a snapshot of position when triggered by the Time Sword. Listen for the Time Sword's onRestore event to restore that snapshot.
 public class PushBlock : MonoBehaviour, ISnapshottable, IPushable
 {
     public float minimumPushSpeed = 1.0f;

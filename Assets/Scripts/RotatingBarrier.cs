@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Listen for the pressure plate's onToggle event and rotate between two positions 90 degrees apart. Push IPushables when rotating.
+// Take a snapshot of rotation when triggered by the Time Sword. Listen for the Time Sword's onRestore event to restore that snapshot.
 public class RotatingBarrier : MonoBehaviour, ISnapshottable
 {
     public ToggleColour toggleColour = ToggleColour.Red;
@@ -58,6 +60,7 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
+    // Rotate towards the target rotation then stop when the target rotation is reached
     private void FixedUpdate()
     {
         if (!_inPosition)
@@ -72,6 +75,7 @@ public class RotatingBarrier : MonoBehaviour, ISnapshottable
         }
     }
 
+    // Set target rotation when the pressure plate fires onToggle
     private void Toggle(bool active)
     {
         _inPosition = false ;

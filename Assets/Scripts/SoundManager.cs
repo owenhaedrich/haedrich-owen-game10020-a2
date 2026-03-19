@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Listen for onToggle from the pressure plates, and onSnapshot and onRestore from the Time Sword. Play appropriate sound effects when the events fire.
 public class SoundManager : MonoBehaviour
 {
     public AudioClip timeSwordSnapshot;
