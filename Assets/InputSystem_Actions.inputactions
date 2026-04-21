@@ -1042,6 +1042,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "ea1ee264-53f9-43ce-ae6e-15ed5982c9b2",
+            "actions": [
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "5af0fa0f-9694-4eff-9d85-86229d33b99a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e3d64ee1-e4af-41a9-9939-c5874475937c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
