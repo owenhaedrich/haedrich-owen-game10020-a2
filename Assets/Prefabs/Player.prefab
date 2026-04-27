@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 8177557078400318498}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,10 +346,11 @@ MonoBehaviour:
   pushSpeed: 3
   pushBuildUpTime: 0.3
   pushResetDelay: 0.7
+  pushStopTime: 0.1
   pushResponseSlowFactor: 0.05
   pushResponseRecoveryTime: 0.3
-  pushSlowFactor: 0.3
-  pushRecoveryTime: 0.1
+  knockbackForceMultiplier: 1.5
+  knockbackDecaySpeed: 8
   accelerationTime: 0.25
   decelerationTime: 0.12
   moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
